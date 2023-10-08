@@ -1,0 +1,27 @@
+:root {
+    /*
+    All colors are CSS supported colors
+    See https://www.w3schools.com/cssref/css_colors.php for supported color names
+    See https://www.w3schools.com/cssref/css_colors_legal.php for other options
+    */
+    --background-color: black;
+
+    --outline-color: black; /* set to " none " for no outline*/
+
+    --wheel-rim-color: #231f20;
+    --wheel-hub-color: #58595b;
+    --wheel-spokes-color: #a7a9ac;
+    --wheel-tape-color: white;
+
+    --petal-background-color: white;
+    --petal-fill-color: red;
+
+    --gear-text-color: white;
+    --gear-background-color: #58595b;
+
+    /* Individual petal overides*/
+    --clutch-fill-color: blue;
+    --brake-fill-color: red;
+    --gas-fill-color: green;
+    --handbrake-fill-color: #bb9000;
+}

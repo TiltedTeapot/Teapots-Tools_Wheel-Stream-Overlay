@@ -1,0 +1,85 @@
+:root {
+    --wheel-rotation: 0deg;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("./Fonts/Inter/static/Inter-Bold.ttf");
+
+    font-weight: bold;
+}
+
+/* Temp */
+body {
+    background-color: var(--background-color);
+    font-family: sans-serif;
+}
+
+h1, h2, h3, p, li {
+    color: white;
+    font-weight: 800;
+    -webkit-text-stroke: 0.05em black;
+}
+
+.hidden {
+    display: none;
+}
+
+#racing-overlay {
+    display: grid;
+    grid-template: 
+        /* "w w w" 1fr
+        "w w w" 1fr
+        "w w w" 1fr
+        "y y y" 0.2fr
+        "c gr gr" 1fr
+        "c gr gr" 1fr
+        "c gr gr" 1fr
+        "x x x" 0.2fr
+        "hb b g" 1fr
+        "hb b g" 1fr
+        "hb b g" 1fr / 1fr 1fr 1fr; */
+        "w  w  w  w  w" 1fr
+        "w  w  w  w  w" 1fr
+        "w  w  w  w  w" 1fr
+        "w  w  w  w  w" 1fr
+        "w  w  w  w  w" 1fr
+        "y  y  y  z  z" 0.2fr
+        "gr gr hb z  z" 1fr
+        "gr gr hb z  z" 1fr
+        "gr gr hb z  z" 1fr
+        "x  x  x  z  z" 0.2fr
+        "c  b  g  z  z" 1fr
+        "c  b  g  z  z" 1fr
+        "c  b  g  z  z" 1fr / 1fr 1fr 1fr 1fr 1fr;
+
+
+    position: absolute;
+    justify-items: center;
+    align-items: center;
+    overflow: clip;
+    /*gap: 2vb;*/
+    top: 50%;
+    left: 50%;
+    /*width: 256px;*/
+    /* width: 512px;
+    height: 1024px; */
+
+    /*CHANGE VH based on grid ratio*/
+    width: min(100vw, 43vh);
+    height: max-content;
+    transform: translate(-50%, -50%);
+}
+
+#wheel {
+    transform: rotate(var(--wheel-rotation));
+}
+
+svg text {
+    font: bold Inter, sans-serif;
+    fill: var(--gear-text-color); 
+    stroke: var(--outline-color);
+    stroke-width: 6;
+    text-anchor: middle;
+    paint-order: stroke fill;
+}

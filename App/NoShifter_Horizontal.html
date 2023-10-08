@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<head>
+    <script type="application/json" id="config">
+        {
+            "test-mode": false,
+
+            "input-device-ids":
+                ["G920 Driving Force Racing Wheel for Xbox One (Vendor: 046d Product: c262)",
+                "ODDOR-handbrake (Vendor: 1020 Product: 8888)"],
+
+            "wheel-input":
+            {
+                "input-device-index": 0,
+                "input-number": 0,
+                "is-inverted": false,
+                "min-value": -1,
+                "max-value": 1,
+                "max-rotation": 180
+            },
+
+            "gear-input":
+            {
+                "input-device-index": 0,
+                "input-numbers": [22, 23, 24, 25, 26, 27, 28],
+                "identification-characters": ["R", "1", "2", "3", "4", "5", "6"],
+                "neutral-identification-character": "N"
+            },
+
+            "clutch-input":
+            {
+                "input-device-index": 0,
+                "input-number": 5,
+                "is-inverted": true,
+                "min-value": -1,
+                "max-value": 1
+            },
+
+            "brake-input":
+            {
+                "input-device-index": 0,
+                "input-number": 2,
+                "is-inverted": true,
+                "min-value": -1,
+                "max-value": 1
+            },
+
+            "gas-input":
+            {
+                "input-device-index": 0,
+                "input-number": 1,
+                "is-inverted": true,
+                "min-value": -1,
+                "max-value": 1
+            },
+
+            "handbrake-input":
+            {
+                "input-device-index": 1,
+                "input-number": 6,
+                "is-inverted": false,
+                "min-value": -1,
+                "max-value": 1
+            }
+        }        
+    </script>
+    <script src="./Test.js" defer></script>
+    <script src="./InputAnimations.js" defer></script>
+
+    <link href="./NoShifter_horizontal_Layout.css" rel="stylesheet" />
+    <link href="./Colors.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="racing-overlay" class="flex">
+        <svg id="gear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 192" style="grid-area: gr;">
+            <defs>
+                <style>
+                    #gear > text {
+                        font-size: 108px;
+                        stroke-width: 6;
+                    }
+
+                    #gear > rect {
+                        fill: var(--gear-background-color); 
+                        stroke: var(--outline-color);
+                        stroke-width: 6;
+                    }
+                </style>
+                <clipPath id="gear-background-innerstroke-clip">
+                    <rect width="128" height="192" rx="10" ry="10">
+                </clipPath>
+            </defs>
+            <rect width="128" height="192" rx="10" ry="10"  clip-path="url(#gear-background-innerstroke-clip)"/>
+            <text x="50%" y="50%" dominant-baseline="Central" >N</text>
+        </svg>
+        <svg id="wheel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="grid-area: w;">
+            <defs>
+                <style>
+                    #wheel > * {
+                        stroke: var(--outline-color);
+                        stroke-width: 9;
+                    }
+
+                    #rim, #tape {
+                        fill: none;
+                        stroke-miterlimit: 10;
+                        stroke-width: 48px;
+                    }
+
+                    .spoke { fill: var(--wheel-spokes-color); }
+                    #hub { fill: var(--wheel-hub-color); }
+                    #rim { stroke: var(--wheel-rim-color); }
+                    #tape { stroke: var(--wheel-tape-color); }
+                </style>
+                <clipPath id="tape-clip">
+                    <rect x="222" y="0" width="64" height="256"/>
+                </clipPath>
+            </defs>
+            <polygon id="Spoke_3" class="spoke" points="288 256 272 488 240 488 224 256 288 256 288 256"/>
+            <polygon id="Spoke_2" class="spoke" points="247.68 225.1 475.93 180.23 484.25 211.13 264.32 286.9 247.68 225.1 247.68 225.1"/>
+            <polygon id="Spoke_1" class="spoke" points="247.68 286.9 27.75 211.13 36.07 180.23 264.32 225.1 247.68 286.9 247.68 286.9"/>
+            
+            <circle id="hub" cx="256" cy="256" r="48"/>
+            <circle id="rim" cx="256" cy="256" r="232"/>
+            <circle id="tape" cx="256" cy="256" r="232" clip-path="url(#tape-clip)"/>
+        </svg>
+        <svg id="clutch-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 384" style="grid-area: c;" >
+            <defs>
+                <style>
+                    .petal{
+                        stroke: var(--outline-color);
+                        stroke-width: 12;
+                        stroke-miterlimit: 10;
+                    }
+                </style>
+                <linearGradient id="clutch-gradient" x1="0" x2="0" y1="1" y2="0">
+                    <stop class="petal-fill" offset="0%" stop-color="var(--clutch-fill-color, var(--petal-fill-color))" />
+                    <stop class="petal-background" stop-color="var(--petal-background-color)" />
+                </linearGradient>
+                <clipPath id="petal-innerstroke-clip">
+                    <rect width="128" height="384" rx="10" ry="10"/>
+                </clipPath>
+            </defs>
+            <rect class="petal" width="128" height="384" rx="10" ry="10" fill="url(#clutch-gradient)" clip-path="url(#petal-innerstroke-clip)"/>
+            <text class="label" x="50%" y="90%">C</text>
+        </svg>
+        <svg id="handbrake-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 384" style="grid-area: hb;">
+            <defs>
+                <style>
+                    .petal{
+                        stroke: var(--outline-color);
+                        stroke-width: 12;
+                        stroke-miterlimit: 10;
+                    }
+                </style>
+                <linearGradient id="handbrake-gradient" x1="0" x2="0" y1="1" y2="0">
+                    <stop class="petal-fill" offset="0%" stop-color="var(--handbrake-fill-color, var(--petal-fill-color))" />
+                    <stop class="petal-background" stop-color="var(--petal-background-color)" />
+                </linearGradient>
+                <clipPath id="petal-innerstroke-clip">
+                    <rect width="128" height="384" rx="10" ry="10"/>
+                </clipPath>
+            </defs>
+            <rect class="petal" width="128" height="384" rx="10" ry="10" fill="url(#handbrake-gradient)" clip-path="url(#petal-innerstroke-clip)"/>
+            <text class="label" x="50%" y="90%">Hb</text>
+        </svg>
+        <svg id="brake-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 384" style="grid-area: b;">
+            <defs>
+                <style>
+                    .petal{
+                        stroke: var(--outline-color);
+                        stroke-width: 12;
+                        stroke-miterlimit: 10;
+                    }
+
+                    .label {
+                        font-size: 64px;
+                        stroke-width: 12px;
+                    }
+                </style>
+                <linearGradient id="brake-gradient" x1="0" x2="0" y1="1" y2="0">
+                    <stop class="petal-fill" offset="0%" stop-color="var(--brake-fill-color, var(--petal-fill-color))" />
+                    <stop class="petal-background" stop-color="var(--petal-background-color)" />
+                </linearGradient>
+                <clipPath id="petal-innerstroke-clip">
+                    <rect width="128" height="384" rx="10" ry="10"/>
+                </clipPath>
+            </defs>
+            <rect class="petal" width="128" height="384" rx="10" ry="10" fill="url(#brake-gradient)" clip-path="url(#petal-innerstroke-clip)"/>
+            <text class="label" x="50%" y="90%">B</text>
+        </svg>
+        <svg id="gas-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 384" style="grid-area: g;">
+            <defs>
+                <style>
+                    .petal{
+                        stroke: var(--outline-color);
+                        stroke-width: 12;
+                        stroke-miterlimit: 10;
+                    }
+                </style>
+                <linearGradient id="gas-gradient" x1="0" x2="0" y1="1" y2="0">
+                    <stop class="petal-fill" offset="0%" stop-color="var(--gas-fill-color, var(--petal-fill-color))" />
+                    <stop class="petal-background" stop-color="var(--petal-background-color)" />
+                </linearGradient>
+                <clipPath id="petal-innerstroke-clip">
+                    <rect width="128" height="384" rx="10" ry="10"/>
+                </clipPath>
+            </defs>
+            <rect class="petal" width="128" height="384" rx="10" ry="10" fill="url(#gas-gradient)" clip-path="url(#petal-innerstroke-clip)"/>
+            <text class="label" x="50%" y="90%">G</text>
+        </svg>
+    </div>
+</body>
