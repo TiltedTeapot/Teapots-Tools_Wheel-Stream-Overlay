@@ -4,13 +4,12 @@ class InputData {
 
     isMapped = false;
     isAxis = false;
-    isInverted = false;
 
     minValue = 0;
     maxValue = 1;
     inversionAdjustementValue = 1;
 
-    constructor (inputDeviceIndex, configInputNumber, isInverted = false, minValue = 0, maxValue = 1) 
+    constructor (inputDeviceIndex, configInputNumber, minValue = 0, maxValue = 1) 
     {
         // if (configInputNumber == null || inputDeviceIndex == null) 
         // {
@@ -19,8 +18,6 @@ class InputData {
 
         this.inputDeviceIndex = inputDeviceIndex;
         this.gamepadInputNumber = configInputNumber;
-
-        this.isInverted = isInverted;
 
         this.minValue = minValue;
         this.maxValue = maxValue;
@@ -31,7 +28,6 @@ class InputData {
     {
         let inputDeviceIndex = null;
         let jsonInputNumber = null;
-        let isInverted = false;
         let minValue = 0;
         let maxValue = 1;
 
@@ -48,12 +44,6 @@ class InputData {
                 case "input-number":
                 {
                     jsonInputNumber = value;
-                    break;
-                }
-
-                case "is-inverted":
-                {
-                    isInverted = value;
                     break;
                 }
 
@@ -80,7 +70,6 @@ class InputData {
             return new InputData(
                 inputDeviceIndex,
                 jsonInputNumber,
-                isInverted,
                 minValue,
                 maxValue);
         }
@@ -115,6 +104,7 @@ class InputData {
         this.isMapped = true;
     }
 
+    //returns a value between 0 and 1
     getCurrentValue(gamepads) 
     {
         if (this.inputDeviceIndex == null || 
@@ -142,13 +132,11 @@ class InputData {
         //scales to 0-1 output
         value = (value - this.minValue) * (1 / range);
 
-        if (this.isInverted) 
-        { 
-            //inverts value
-            value = (value * -1) + 1;
-            //inverts value and adjusts to range
-            //value = (value * -1) + this.inversionAdjustementValue;
-        }
+        // if (this.minValue > this.maxValue) 
+        // { 
+        //     //inverts value
+        //     value = (value * -1) + 1;
+        // }
 
         return value;
     }
@@ -203,11 +191,6 @@ class GearShifterData {
         let value = this.neutralIdentificationCharacter;
 
         let activeGearIndex = this.gearInputData.findIndex(gearInput => gearInput?.getCurrentValue(gamepads) > 0);
-        // {
-        //     let gearValue = gearInput?.getCurrentValue(gamepads);
-
-        //     return gearValue != null && gearValue != undefined && gearValue > 0;
-        // });
 
         if (activeGearIndex >= 0 && activeGearIndex < this.identificationCharacters.length)
         {
@@ -233,8 +216,7 @@ const handbrakeGradientFill = document.querySelector("#handbrake-svg .petal-fill
 
 //config data
 const trackedGamepadIDs = config["input-device-ids"];
-//const targetGamepadID = config["controller-id"];
-const wheelMaxRotation = config["wheel-input"]["max-rotation"]; //config["wheel-max-rotation"];
+const wheelMaxRotation = config["wheel-input"]["max-rotation"];
 
 //input maps
 var wheelInputData = InputData.loadFromJSONObject(config["wheel-input"]);
@@ -277,47 +259,43 @@ function updateOverlay()
 
     let trackedGamepads = trackedGamepadIDs.map(trackedID => navigatorGamepads.find(gp => gp?.id == trackedID));
 
-    //gamepad = navigator.getGamepads().find(g => g?.id == targetGamepadID);
-    // if (gamepad != null)
-    // {
 
-        let wheelValue = wheelInputData?.getCurrentValue(trackedGamepads);
-        if (wheelValue != null)
-        {
-            wheelValue = (wheelValue - 0.5) * 2;
-            root.style.setProperty("--wheel-rotation", `${wheelValue * wheelMaxRotation}deg`);
-        }
+    let wheelValue = wheelInputData?.getCurrentValue(trackedGamepads);
+    if (wheelValue != null)
+    {
+        wheelValue = (wheelValue - 0.5) * 2;
+        root.style.setProperty("--wheel-rotation", `${wheelValue * wheelMaxRotation}deg`);
+    }
 
-        let gearValue = gearShifterInputData?.getCurrentValue(trackedGamepads);
-        if (gearValue != null) 
-        {
-            gearTextElement.textContent = gearValue;
-        }
+    let gearValue = gearShifterInputData?.getCurrentValue(trackedGamepads);
+    if (gearValue != null) 
+    {
+        gearTextElement.textContent = gearValue;
+    }
 
-        let clutchValue = clutchInputData?.getCurrentValue(trackedGamepads);
-        if (clutchValue != null)
-        {
-            clutchGradientFill.setAttribute("offset", clutchValue);
-        }
+    let clutchValue = clutchInputData?.getCurrentValue(trackedGamepads);
+    if (clutchValue != null)
+    {
+        clutchGradientFill.setAttribute("offset", clutchValue);
+    }
 
-        let brakeValue = brakeInputData?.getCurrentValue(trackedGamepads);
-        if (brakeValue != null)
-        {
-            brakeGradientFill.setAttribute("offset", brakeValue);
-        }
+    let brakeValue = brakeInputData?.getCurrentValue(trackedGamepads);
+    if (brakeValue != null)
+    {
+        brakeGradientFill.setAttribute("offset", brakeValue);
+    }
 
-        let gasValue = gasInputData?.getCurrentValue(trackedGamepads);
-        if (gasValue != null)
-        {
-            gasGradientFill.setAttribute("offset", gasValue);
-        }
+    let gasValue = gasInputData?.getCurrentValue(trackedGamepads);
+    if (gasValue != null)
+    {
+        gasGradientFill.setAttribute("offset", gasValue);
+    }
 
-        let handbrakeValue = handbrakeInputData?.getCurrentValue(trackedGamepads);
-        if (handbrakeValue != null)
-        {
-            handbrakeGradientFill.setAttribute("offset", handbrakeValue);
-        }
+    let handbrakeValue = handbrakeInputData?.getCurrentValue(trackedGamepads);
+    if (handbrakeValue != null)
+    {
+        handbrakeGradientFill.setAttribute("offset", handbrakeValue);
+    }
 
-        requestAnimationFrame(updateOverlay);
-    //}
+    requestAnimationFrame(updateOverlay);
 }
