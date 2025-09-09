@@ -18,7 +18,7 @@ Follow these steps to get your overlay working
         > **Gear Shifter:** *In the case of the gear shifter you will likely see multiple input numbers with changing values, note which input number has a value of 1 for each gear. skip to step 6.*
     3. What the minimum value is rounded down to the nearest 10th (*fully released or full left rotation of the wheel*).
     4. What the maximum value is rounded up to the nearest 10th (*fully pressed or full right rotation of the wheel*).
-6. If you haven't already added the device found in step 6.4, In the text editor find **`input-device-ids`** on line 7 and add it. see examples below:
+6. If you haven't already added the device found in step 5.1, In the text editor find **`input-device-ids`** on line 7 and add it. see examples below:
     > [!WARNING]
     > Make sure not to delete commas, quotes, or brackets.
 
@@ -44,7 +44,7 @@ Follow these steps to get your overlay working
     4. `"max-value":` "*the maximum value found in step 5.4*"
     5. **Gear shifter Only** `"input-numbers":` [*the input number for reverse, input number for 1st, input number for 2nd, etc...*] (*input numbers found in step 5.2*).
     6. **Gear shifter Only** `"identification-characters":` [*"R", "1", "2", etc...*] (*these character is what is displayed when the associated input above is detected*).
-8. Repeat steps 5-7 for each input device you'd like to map.
+8. Repeat steps 5-7 for each input device you would like to map.
 9. **Save "Index.html"** and close the text editor.
 10. Open/refresh "Index.html" in your browser and use all your mapped inputs to make sure the overlay responds accordingly. If the overlay does not respond to your inputs correctly, repeat steps 3-10. If that doesn't work please report an Issue via github.
 
@@ -65,4 +65,4 @@ Follow these steps to get your overlay working
 
 ### Advanced
 
-[^1]: Zero-based indexing means start counting from zero, therefore the 1st entry in a list is index 0 and the second is index 1 and so on... .
+[^1]: Zero-based indexing means start counting from zero, therefore the first entry in a list is index 0 and the second is index 1 and so on... .
