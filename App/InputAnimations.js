@@ -17,7 +17,7 @@ class InputData {
         // }
 
         this.inputDeviceIndex = inputDeviceIndex;
-        this.gamepadInputNumber = configInputNumber;
+        this.gamepadInputNumber = configInputNumber - 1;
 
         this.minValue = minValue;
         this.maxValue = maxValue;
@@ -98,7 +98,7 @@ class InputData {
         this.isAxis = this.gamepadInputNumber < gamepadAxesLength;
         if (!this.isAxis)
         {
-            this.gamepadInputNumber -= gamepadAxesLength + 1;
+            this.gamepadInputNumber -= gamepadAxesLength;
         }
 
         this.isMapped = true;
