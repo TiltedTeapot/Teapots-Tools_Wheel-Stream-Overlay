@@ -10,9 +10,9 @@ Follow these steps to get your overlay working
 ### Setup Requirements
 * Text editor
 * Chromium based web browser (Chrome, Edge, Opera, Brave, etc...)
-> Device input ids are not standardized between browsers, because the W3C standard for (Gamepad Interface)[https://w3c.github.io/gamepad/#gamepad-interface] does not specify a standard format for gamepad ids.
+> Device input ids are not standardized between browsers, because the W3C standard for [Gamepad Interface](https://w3c.github.io/gamepad/#gamepad-interface) does not specify a standard format for gamepad ids.
 >
-> OBS uses the (Chromium Embedded Framework)[https://github.com/chromiumembedded/cef] for browser sources. Therefor, mappings will only work when using a Chromium based browser for setup.
+> OBS uses the [Chromium Embedded Framework](https://github.com/chromiumembedded/cef) for browser sources. Therefor, mappings will only work when using a Chromium based browser for setup.
 
 ### Setup Inputs
 > [!IMPORTANT]
