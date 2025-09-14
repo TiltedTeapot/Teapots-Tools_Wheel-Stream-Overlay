@@ -7,10 +7,17 @@ Follow these steps to get your overlay working
 1. Download the latest release of the overlay.
 2. Unzip the contents to a safe location.
 
-### Setup Inputs (requires a modern browser and text editor)
+### Setup Requirements
+* Text editor
+* Chromium based web browser (Chrome, Edge, Opera, Brave, etc...)
+> Device input ids are not standardized between browsers, because the W3C standard for [Gamepad Interface](https://w3c.github.io/gamepad/#gamepad-interface) does not specify a standard format for gamepad ids.
+>
+> OBS uses the [Chromium Embedded Framework](https://github.com/chromiumembedded/cef) for browser sources. Therefor, mappings will only work when using a Chromium based browser for setup.
+
+### Setup Inputs
 > [!IMPORTANT]
 > Make sure your wheel and other peripherals are plugged in.
-3. Open "InputDisplay.html" in your browser.
+3. Open "InputDisplay.html" in your **Chromium** browser.
 4. Open "Index.html" in a text editor. 
 5. While moving your desired input you'd like to map take note of:
     1. which input device (header) the changing value falls under.
@@ -46,7 +53,7 @@ Follow these steps to get your overlay working
     6. **Gear shifter Only** `"identification-characters":` [*"R", "1", "2", etc...*] (*these character is what is displayed when the associated input above is detected*).
 8. Repeat steps 5-7 for each input device you would like to map.
 9. **Save "Index.html"** and close the text editor.
-10. Open/refresh "Index.html" in your browser and use all your mapped inputs to make sure the overlay responds accordingly. If the overlay does not respond to your inputs correctly, repeat steps 3-10. If that doesn't work please report an Issue via github.
+10. Open/refresh "Index.html" in your Chromium browser and use all your mapped inputs to make sure the overlay responds accordingly. If the overlay does not respond to your inputs correctly, repeat steps 3-10. If that doesn't work please report an Issue via github.
 
 
 ### Integration into OBS
